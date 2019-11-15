@@ -1,9 +1,10 @@
 import React from 'react'
-import {View} from 'react-native'
+import {View, ImageBackground} from 'react-native'
+import nav from  './assets/wallpapers/nav.jpg'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import Home from './containers/Home'
-import Rank from './containers/Rank'
+import Profile from './containers/Profile'
 import Service from './containers/Service'
 import Login from './containers/Login'
 import { createStackNavigator } from 'react-navigation-stack';
@@ -13,9 +14,9 @@ const HomNavigator = createStackNavigator({
     screen: Home,
     navigationOptions: ({ navigation }) => ({
         headerTitle : (
-            <View style={{ backgroundColor: '#e7a94b',width: '100%',
-            height: '100%', }}>
-            </View>
+          <View style={{width: "100%", height: "100%", borderWidth:0}}>
+            <ImageBackground source={nav} style={{width: "100%", height: "100%", resizeMode: "contain"}} />
+          </View>
         )
     })
   }
@@ -25,7 +26,7 @@ const HomNavigator = createStackNavigator({
 const BottomNav = createBottomTabNavigator(
   {
     Home: { screen: HomNavigator},
-    Rank: {screen: Rank },
+    Profile: {screen: Profile },
     Service: {screen: Service}
   }
 );
