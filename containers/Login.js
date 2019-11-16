@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, TextInput, TouchableOpacity, ImageBackground, Image } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, TextInput, TouchableOpacity, ImageBackground, Image, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import bgLog from '../assets/wallpapers/customwal.png'
 import gerobak from '../assets/food-cart.png'
@@ -20,22 +20,22 @@ export default function LoginForm(props) {
   }
 
   useEffect(() => {
-    // if (!isLoading && isLogin) {
+    if (!isLoading && isLogin) {
       props.navigation.navigate('Home')
-    // }
+    }
   }, [isLoading, isLogin])
 
   return (
     <ImageBackground source={bgLog} style={{height: '100%', resizeMode: "cover"}}>
+      <ScrollView>
       <View style={styleg.safearea}>
         <View style={style.containLog}>
         <View style={{ width: '80%', marginVertical: 25}}>
           <Image source={gerobak} style={{width: 140, height: 140, alignSelf:'center', marginVertical: 28}}/>
           <Text style={{fontWeight: "bold", textAlign: 'center', fontSize: 28}}>Franchies of</Text>
-          <Text style={{fontWeight: "bold", textAlign: 'center', fontSize: 28}}>Boss Bakso</Text>
+          <Text style={{fontWeight: "bold", textAlign: 'center', fontSize: 28}}>BosBaso</Text>
         </View>
         <View style={{ width: '80%', marginTop: 10}}>
-
           <Text style={{alignSelf: 'flex-start', fontSize: 16, fontWeight: '400'}}>Login :</Text>
         </View>
         <View style={{ width: '80%', marginVertical: 8}}>
@@ -43,17 +43,15 @@ export default function LoginForm(props) {
           </View>
           <View style={{ width: '80%', marginVertical: 8}}>
           <TextInput style={style.input} secureTextEntry={true} value={pass} onChangeText={text => setPass(text)} placeholder="Password"/>
-
           <View style={{justifyContent: 'center', alignItems: 'center', width: '100%'}}>
-
           <TouchableOpacity style={{ ...styleg.buttonOrange, width: 120, margin: 24, ...style.shadowing }} onPress={() => loginMe()} activeOpacity={.9}>
             <Text style={{padding: 2}}>Submit</Text>
           </TouchableOpacity>
           </View>
         </View>
         </View>
-
       </View>
+      </ScrollView>
     </ImageBackground>
   )
 }

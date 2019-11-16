@@ -14,8 +14,7 @@ const HomNavigator = createStackNavigator({
     screen: Home,
     navigationOptions: ({ navigation }) => ({
         headerTitle : (
-          <View style={{width: "100%", height: "100%", borderWidth:0}}>
-            <ImageBackground source={nav} style={{width: "100%", height: "100%", resizeMode: "contain"}} />
+          <View style={{width: "100%", height: "100%", borderWidth:0,backgroundColor: '#f9ca1d'}}>
           </View>
         )
     })
@@ -26,8 +25,8 @@ const HomNavigator = createStackNavigator({
 const BottomNav = createBottomTabNavigator(
   {
     Home: { screen: HomNavigator},
+    Service: {screen: Service},
     Profile: {screen: Profile },
-    Service: {screen: Service}
   }
 );
 
