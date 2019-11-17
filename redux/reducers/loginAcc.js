@@ -1,4 +1,4 @@
-import { SUC_LOG, FAIL_LOG, LOGOUT } from '../actions/type'
+import { SUC_LOG, FAIL_LOG, LOGOUT, ADD_BOWL } from '../actions/type'
 
 const initialState = {
     isLoading: true,
@@ -7,7 +7,9 @@ const initialState = {
     token: null,
     image : null,
     username: null,
-    history: null
+    history: null,
+    _id : null,
+    bowl: null
 }
 
 
@@ -22,7 +24,9 @@ export default function login(state = initialState, action) {
             isLoading: false,
             image : action.payload.image,
             username: action.payload.username,
-            history: action.payload.history
+            history: action.payload.history,
+            _id: action.payload._id,
+            bowl: action.payload.bowl
         }
         case LOGOUT :
             return {
@@ -33,7 +37,14 @@ export default function login(state = initialState, action) {
                 token: null,
                 image : null,
                 username: null,
-                history: null
+                history: null,
+                _id: null,
+                bowl: null
+            }
+        case ADD_BOWL :
+            return {
+                ...state,
+                bowl: state.bowl +1
             }
         default:
             return state

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, SafeAreaView, TextInput, TouchableOpacity, ImageBackground, Image, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import bgLog from '../assets/wallpapers/customwal.png'
-import gerobak from '../assets/food-cart.png'
+import bgLog from '../assets/wal/wal.jpg'
 
 import styleg from '../styleGlobal'
 import { login } from "../redux/actions/postLogin";
@@ -20,23 +19,22 @@ export default function LoginForm(props) {
   }
 
   useEffect(() => {
+    // props.navigation.navigate('Service')
+
     if (!isLoading && isLogin) {
       props.navigation.navigate('Home')
     }
   }, [isLoading, isLogin])
 
   return (
-    <ImageBackground source={bgLog} style={{height: '100%', resizeMode: "cover"}}>
+    <View style={styleg.safearea}>
+      <ImageBackground source={bgLog} style={{height: '100%', resizeMode: "cover"}}>
       <ScrollView>
-      <View style={styleg.safearea}>
         <View style={style.containLog}>
-        <View style={{ width: '80%', marginVertical: 25}}>
-          <Image source={gerobak} style={{width: 140, height: 140, alignSelf:'center', marginVertical: 28}}/>
-          <Text style={{fontWeight: "bold", textAlign: 'center', fontSize: 28}}>Franchies of</Text>
-          <Text style={{fontWeight: "bold", textAlign: 'center', fontSize: 28}}>BosBaso</Text>
+        <View style={{ width: '80%', marginTop: 55}}>
+          <Text style={{fontWeight: "bold", textAlign: 'left', fontSize: 33, color: 'white', marginLeft: 4}}>Login</Text>
         </View>
         <View style={{ width: '80%', marginTop: 10}}>
-          <Text style={{alignSelf: 'flex-start', fontSize: 16, fontWeight: '400'}}>Login :</Text>
         </View>
         <View style={{ width: '80%', marginVertical: 8}}>
           <TextInput style={style.input} value={username} onChangeText={text => setUsername(text)} placeholder="Username" />
@@ -44,15 +42,15 @@ export default function LoginForm(props) {
           <View style={{ width: '80%', marginVertical: 8}}>
           <TextInput style={style.input} secureTextEntry={true} value={pass} onChangeText={text => setPass(text)} placeholder="Password"/>
           <View style={{justifyContent: 'center', alignItems: 'center', width: '100%'}}>
-          <TouchableOpacity style={{ ...styleg.buttonOrange, width: 120, margin: 24, ...style.shadowing }} onPress={() => loginMe()} activeOpacity={.9}>
+          <TouchableOpacity style={{ ...styleg.buttonOrange, width: 110, margin: 24, ...style.shadowing }} onPress={() => loginMe()} activeOpacity={.9}>
             <Text style={{padding: 2}}>Submit</Text>
           </TouchableOpacity>
           </View>
         </View>
         </View>
-      </View>
       </ScrollView>
     </ImageBackground>
+      </View>
   )
 }
 
@@ -66,7 +64,7 @@ const style = StyleSheet.create({
     shadowOffset: { height: 3, width: 3 }
   },
   input: {
-    paddingLeft: 5,
+    paddingLeft: 14,
     width: '100%',
     height: 42,
     backgroundColor: 'white',

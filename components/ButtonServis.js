@@ -36,7 +36,7 @@ export default function ButtonServis(props) {
 }
 
     return (
-        <View style={{ width: 78, height: 78, alignItems: 'center', justifyContent: 'flex-start', marginVertical: 2, marginHorizontal: 4, padding: 4 }}>
+        <View style={{ width: 78, height: 78, alignItems: 'center', justifyContent: 'flex-start', marginBottom: 2, marginHorizontal: 4, paddingHorizontal: 4 }}>
             <TouchableOpacity onPress={
                 () => notif(props.name)
             }>

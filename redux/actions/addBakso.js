@@ -1,6 +1,7 @@
-import { TRANS } from './type'
+import { ADD_BOWL } from './type'
 import axios from 'axios'
-
+import SocketIOClient from 'socket.io-client'
+const socket = SocketIOClient('http://34.87.107.88');
 
 export const addBakso = (payload) => {
     return (dispatch) => {
@@ -17,8 +18,13 @@ export const addBakso = (payload) => {
             }
         })
         .then(({data}) => {
-            console.log("RESDUUUUUUIIIIIIXXxx");
-            console.log(data);
+            console.log("hereeeeee");
+            dispatch(successAdd({
+                latitude : payload.latitude,
+                longitude : payload.longitude
+            }))
+            socket.emit('add', 'Hi server')
+
         })
         .catch(err => {
             console.log(err, '?????');
@@ -27,9 +33,8 @@ export const addBakso = (payload) => {
 }
 
 export const successAdd = (payload) => {
-    console.log(payload, 'disiinii donggggg');
     return ({
-        type: TRANS, payload: payload
+        type: ADD_BOWL, payload: payload
     })
 }
 
