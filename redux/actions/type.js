@@ -4,3 +4,7 @@ export const LOGOUT = "LOGOUT"
 export const TRANS = "TRANS"
 export const LOC = "LOC"
 export const ADD_BOWL = "ADD_BOWL"
+export const GET_SERVICE = "GET_SERVICE"
+export const DEL_SERVICE = "DEL_SERVICE"
+export const RANK = "RANK"
+

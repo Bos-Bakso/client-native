@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, SafeAreaView, TextInput, TouchableOpacity, ImageBackground, Image, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import bgLog from '../assets/wal/wal.jpg'
-
+import {service} from '../redux/actions/getService'
 import styleg from '../styleGlobal'
 import { login } from "../redux/actions/postLogin";
+import toast from '../helpers/toast'
 
 
 export default function LoginForm(props) {
   const dispatch = useDispatch()
   let isLoading = useSelector(state => state.loginAcc.isLoading)
   let isLogin = useSelector(state => state.loginAcc.isLogin)
+  let role = useSelector(state=> state.loginAcc.role)
   let token = useSelector(state => state.loginAcc.token)
   const [pass, setPass] = useState('')
   const [username, setUsername] = useState('')
@@ -19,10 +21,17 @@ export default function LoginForm(props) {
   }
 
   useEffect(() => {
-    // props.navigation.navigate('Service')
-
+    // props.navigation.navigate('Home')
     if (!isLoading && isLogin) {
-      props.navigation.navigate('Home')
+      console.log(role);
+      if (role === "service"){
+        dispatch(service({token : token}))
+        props.navigation.navigate('Service')
+      } else if (role === "baso"){
+        props.navigation.navigate('Home')
+      } else if (role === "admin"){
+        toast("Access for owner is in web")
+      }
     }
   }, [isLoading, isLogin])
 

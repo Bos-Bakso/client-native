@@ -20,7 +20,7 @@ export default function Service(props) {
     { name: 'Urgent', icon: call, color: '#eacc23' },
     { name: 'Medice', icon: medice, color: '#139ad8' },
     { name: 'Service', icon: mechine, color: '#cc4355' },
-    { name: 'Ban Issue', icon: ban, color: '#1fba79' },
+    { name: 'Tire Issue', icon: ban, color: '#1fba79' },
     { name: 'Edit Profile', icon: user, color: '#eacc23' },
     { name: 'Less Ingredient', icon: sauce, color: '#139ad8' },
     { name: 'Low Battery', icon: battery, color: '#cc4355' },
@@ -30,7 +30,6 @@ export default function Service(props) {
 
     <View style={{ ...styleg.safearea, height: '100%' }}>
 
-
       <ScrollView>
         <View style={{ width: '100%', justifyContent: 'flex-start', alignItems: 'center', height: '100%' }}>
           <Image source={baksoreal} style={{ height: 145, width: '100%', resizeMode: 'cover', marginBottom: 15 }} />
@@ -38,14 +37,16 @@ export default function Service(props) {
             <View style={{ flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-around', height: '100%', width: '100%', padding: 3 }}>
               {
                 service.map((el, i) =>
-                  <ButtonServer key={i} icon={el.icon} name={el.name} color={el.color} />
+                <View style={{width: '25%'}} key={i}>
+                  <ButtonServer icon={el.icon} name={el.name} color={el.color}  />
+                </View>
                 )
               }
             </View>
           </View>
           {
             service.map((el, i) =>
-              <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '93%', backgroundColor: el.color, borderRadius: 8, height: 120, paddingVertical: 3, paddingHorizontal: 3, marginVertical: 7 }}>
+              <View key={i} style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '93%', backgroundColor: el.color, borderRadius: 8, height: 120, paddingVertical: 3, paddingHorizontal: 3, marginVertical: 7 }}>
                 <View style={{ width: 80, height: 80, borderRadius: 80 / 2, alignItems: 'center', justifyContent: 'center', backgroundColor: 'whitesmoke', marginLeft: 8, marginRight: 10 }}>
                   <Image source={el.icon} style={{ width: 55, height: 55 }} />
                 </View>

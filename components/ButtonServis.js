@@ -4,21 +4,42 @@ import { View, TouchableOpacity, Image, Text } from 'react-native'
 import toast from '../helpers/toast'
 import axios from 'axios'
 import shareLoc from '../helpers/shareLoc'
+import AppLink from 'react-native-app-link'
+import db from '../config/firebase'
 
 
 
 export default function ButtonServis(props) {
     let token = useSelector(state => state.loginAcc.token)
+    const _handlePressDocs = () => {
+        const url = "http://m.me/satubosbakso.satubosbakso"
+        const appName = "messenger"
+        const appStoreId = "454638411"
+        const appStoreLocale = "id"
+        const playStoreId = "com.facebook.orca"
+        AppLink.maybeOpenURL(url, 
+          { appName, appStoreId, appStoreLocale, playStoreId }
+          ).then(() => {
+            console.log("sukses")
+          // do stuff
+        })
+        .catch((err) => {
+          console.log(err)
+          // handle error
+        });
+        // WebBrowser.openBrowserAsync('http://docs.expo.io');
+      };
+
     let notif = (type) => {
         shareLoc().then(data => {
             if (type === "Urgent"){
                 console.log('pindah page')
-                // disini yaa nuck
+                _handlePressDocs()
 
                 
             } else {
                 axios({
-                    url: 'http://34.87.107.88/service/',
+                    url: 'http://35.185.180.235/service/',
                     method: 'post',
                     data : {
                         problem: type,
@@ -28,7 +49,11 @@ export default function ButtonServis(props) {
                     headers:{
                         token : token
                     } })
-                    .then(() => toast("request received, please wait for a response from BosBaso")) 
+                    .then(() => {
+                        let random = Math.floor(Math.random()* 1000000000000000000)
+                        db.collection('triggerNotif').doc('basoNotif').set({count: random})
+                        toast("request received, please wait for a response from BosBaso")
+                    }) 
                     .catch(err => console.log(err))
             }
             

@@ -1,12 +1,10 @@
-import { LOC } from './type'
 import axios from 'axios'
-
 
 export const updateLocation = (payload) => {
     return (dispatch) => {
         axios({
             method: 'patch',
-            url : "http://34.87.107.88/user/",
+            url : "http://35.185.180.235/user/",
             data : {
                 latitude : payload.latitude,
                 longitude : payload.longitude,
@@ -16,7 +14,6 @@ export const updateLocation = (payload) => {
             }
         })
         .then(({data}) => {
-       
             console.log(data);
         })
         .catch(err => {
@@ -24,16 +21,3 @@ export const updateLocation = (payload) => {
         })
     }
 }
-
-export const successAdd = (payload) => {
-    console.log(payload, 'disiinii donggggg');
-    return ({
-        type: TRANS, payload: payload
-    })
-}
-
-// export const logoutMe = () => {
-//     return({
-//         type: LOGOUT, payload: null
-//     })
-// }

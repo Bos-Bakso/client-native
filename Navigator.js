@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, ImageBackground, Text} from 'react-native'
 import nav from  './assets/wallpapers/nav.jpg'
-
+import Triall from './containers/Triall'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import Home from './containers/Home'
@@ -9,8 +9,8 @@ import Profile from './containers/Profile'
 import Service from './containers/Service'
 import Login from './containers/Login'
 import { createStackNavigator } from 'react-navigation-stack';
-import SWork from './containers/Service/Swork'
-import SHome from './containers/Service/try2'
+import SWork from './containers/Service/SWork'
+import SHome from './containers/Service/SHome'
 
 const HomNavigator = createStackNavigator({
   Home: {
@@ -40,6 +40,7 @@ const BottomNav = createBottomTabNavigator(
 );
 
 const switchNav = createSwitchNavigator({
+  // Triall: Triall,
     Login: Login,
     Home: BottomNav,
     Service : switchService

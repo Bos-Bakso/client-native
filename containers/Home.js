@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, TextInput, TouchableOpacity, Imag
 import * as Location from 'expo-location';
 import { useSelector, useDispatch } from 'react-redux'
 import * as Permissions from 'expo-permissions';
-import bowl from '../assets/bowl1.png'
+import bowlayam from '../assets/bowl1.png'
 import * as Animatable from "react-native-animatable";
 import bakso from '../assets/3bakso.png'
 import { addBakso } from '../redux/actions/addBakso'
@@ -16,8 +16,7 @@ import SocketIOClient from 'socket.io-client'
 
 
 export default function Home(props) {
-  const socket = SocketIOClient('http://34.87.107.88');
-  socket.emit('connect', 'Hi server')
+
   const dispatch = useDispatch()
   const bowl = useSelector(state => state.loginAcc.bowl)
   const Income = (bowl * 15000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
@@ -39,7 +38,7 @@ export default function Home(props) {
       setInterval(function () {
         _getLocationAsync()
         //  console.log("herer")
-      }, 5000)
+      }, 50000)
     }
   }, [first])
 
@@ -96,7 +95,7 @@ export default function Home(props) {
                     </TouchableOpacity>
                   </View>
               }
-              <Image source={bowl} style={{ width: 230, height: 150, resizeMode: 'contain' }} />
+              <Image source={bowlayam} style={{ width: 230, height: 150, resizeMode: 'contain' }} />
             </View>
             <View style={{ width: "95%", justifyContent: 'center', alignItems: 'center', marginTop: 18, alignSelf: 'center' }}>
               <View style={{ width: '100%', borderRadius: 12, backgroundColor: '#F2F3F4', alignItems: 'center', flexDirection: 'row', padding: 10 }}>

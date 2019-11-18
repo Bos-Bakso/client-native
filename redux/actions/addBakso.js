@@ -1,14 +1,14 @@
-import { ADD_BOWL } from './type'
+import { ADD_BOWL, RANK } from './type'
 import axios from 'axios'
-import SocketIOClient from 'socket.io-client'
-const socket = SocketIOClient('http://34.87.107.88');
+import db from '../../config/firebase'
+
 
 export const addBakso = (payload) => {
     return (dispatch) => {
         console.log("TRIGGER REDUX ,", payload);
         axios({
             method: 'post',
-            url : "http://34.87.107.88/transaction/",
+            url : "http://35.185.180.235/transaction/",
             data : {
                 latitude : payload.latitude,
                 longitude : payload.longitude,
@@ -23,7 +23,9 @@ export const addBakso = (payload) => {
                 latitude : payload.latitude,
                 longitude : payload.longitude
             }))
-            socket.emit('add', 'Hi server')
+            let random = Math.floor(Math.random()* 1000000000000000000)
+
+            db.collection('triggerRank').doc('basoRank').set({count: random})
 
         })
         .catch(err => {
@@ -38,8 +40,14 @@ export const successAdd = (payload) => {
     })
 }
 
-// export const logoutMe = () => {
-//     return({
-//         type: LOGOUT, payload: null
-//     })
+// export const triggerRank = () => {
+
+//     // socket.on('test', (data) => { 
+//     //     console.log(data , 'SOCCKKKKETTT');
+//     //     return ({
+//     //         type : RANK, payload: data.rank
+//     //     })
+//     //     // setData(data.rank)
+   
+//     //   })
 // }

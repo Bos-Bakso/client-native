@@ -9,7 +9,8 @@ const initialState = {
     username: null,
     history: null,
     _id : null,
-    bowl: null
+    bowl: null,
+    role: null
 }
 
 
@@ -26,7 +27,8 @@ export default function login(state = initialState, action) {
             username: action.payload.username,
             history: action.payload.history,
             _id: action.payload._id,
-            bowl: action.payload.bowl
+            bowl: action.payload.bowl,
+            role: action.payload.role
         }
         case LOGOUT :
             return {
@@ -39,7 +41,8 @@ export default function login(state = initialState, action) {
                 username: null,
                 history: null,
                 _id: null,
-                bowl: null
+                bowl: null,
+                role: null
             }
         case ADD_BOWL :
             return {
