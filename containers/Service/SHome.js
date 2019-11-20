@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Image, ScrollView } from 'react-native'
+import { View, Text, Image, ScrollView, TouchableOpacity, ImageBackground } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
+import { logoutMe } from '../../redux/actions/postLogin'
 import { service, deleteService } from '../../redux/actions/getService'
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
@@ -8,115 +9,120 @@ import db from '../../config/firebase'
 import styleg from '../../styleGlobal'
 import LineService from '../../components/LineService'
 import axios from 'axios'
+import bgLog from '../../assets/wal/wal.jpg'
+import Constants from 'expo-constants'
+
+
 
 export default function SHome(props) {
     const dispatch = useDispatch()
-    const [notification, setNotification] = useState(null)
-    const [tokenNotif, setTokenNotif] = useState(null)
+    let kodeunik = false
     const username = useSelector(state => state.loginAcc.username)
+    const isLogin = useSelector(state => state.loginAcc.isLogin)
     const image = useSelector(state => state.loginAcc.image)
     const token = useSelector(state => state.loginAcc.token)
     const tasks = useSelector(state => state.serviceTask.tasks)
-
-    const sendPushNotification = async() => {
-        // ${tasks[0].tukangBaksoId.username} ${tasks[0].problem}
-        let message = 
-            {
-                to: tokenNotif,
-                sound: 'default',
-                title: 'Help Me',
-                body: `need help for ` ,
-                data: { data: 'goes here' },
-              };
-        
-        const response = await axios({
-            url:'https://exp.host/--/api/v2/push/send',
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Accept-encoding': 'gzip, deflate',
-              'Content-Type': 'application/json',
-            },
-            data: JSON.stringify(message),
-          })
-          console.log(response);
-    } 
+    const [expoPushToken, setTokenN] = useState("")
 
     const registerForPushNotificationsAsync = async () => {
-        const { status} = await Permissions.getAsync(
-          Permissions.NOTIFICATIONS
-        )
+        if (Constants.isDevice) {
+            const { status: existingStatus } = await Permissions.getAsync(
+                Permissions.NOTIFICATIONS
+            );
+            let finalStatus = existingStatus;
+            if (existingStatus !== 'granted') {
+                const { status } = await Permissions.askAsync(
+                    Permissions.NOTIFICATIONS
+                );
+                finalStatus = status;
+            }
+            if (finalStatus !== 'granted') {
+                alert('Failed to get push token for push notification!');
+                return;
+            }
+            let tokenN = await Notifications.getExpoPushTokenAsync();
+            console.log("TOKEN <<<<<<<<<<<    ", tokenN);
+            setTokenN(tokenN);
+        } else {
+            alert('Must use physical device for Push Notifications');
+        }
+    };
 
-        console.log(status);
-        if (status !== 'granted') {
-          const { status } = await Permissions.askAsync(
-            Permissions.NOTIFICATIONS
-          );
-          finalStatus = status;
-        }
-        if (finalStatus !== 'granted') {
-          alert('Failed to get push token for push notification!');
-          return;
-        }
-        let token = await Notifications.getExpoPushTokenAsync();
-        setTokenNotif(token)
-   
-        
+
+    if (!isLogin) {
+        props.navigation.navigate("Login")
     }
 
-    // useEffect(() => {
-    //     Notifications.addListener((notification)=>{
-    //         setNotification(notification)
-    //     });
-    //     registerForPushNotificationsAsync()
-    //     dispatch(service({ token: token }))
-    // }, [token])
+    const logoutNow = () => {
+        dispatch(logoutMe())
+    }
+
+    sendPushNotification = async () => {
+        let lasttask = tasks[0]
+        console.log(lasttask);
+        const message = {
+            to: expoPushToken,
+            sound: 'default',
+            title: 'Abang Bakso Need Help',
+            body: `${lasttask.tukangBasoId.username} need help for ${lasttask.problem}`,
+            data: { data: 'goes here' },
+        };
+        const response = await fetch('https://exp.host/--/api/v2/push/send', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Accept-encoding': 'gzip, deflate',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(message),
+        });
+        const data = response._bodyInit;
+        console.log(`Status & Response ID-> ${JSON.stringify(data)}`);
+    };
+
 
     useEffect(() => {
-        db.collection('triggerNotif').onSnapshot(async function(querySnapshot) {
-            console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< SNAP');
-            await dispatch(service({ token: token }))
-            console.log(tasks);
-            // sendPushNotification()
+        console.log(expoPushToken);
+        db.collection('triggerNotif').onSnapshot(function (querySnapshot) {
+            querySnapshot.forEach(doc => {
+                if (!kodeunik) {
+                    registerForPushNotificationsAsync()
+                    kodeunik = doc.data().count
+                }
+            })
+            if (kodeunik) {
+                sendPushNotification()
+            }
+            dispatch(service({ token: token }))
         });
     }, [])
 
-    // const tasks = [{
-    //     _id: 1,
-    //     type: "Medice",
-    //     username: "lala"
-    // }, {
-    //     _id: 2,
-    //     type: "Medice",
-    //     username: "lili",
-    // }, {
-    //     _id: 3,
-    //     type: "Medice",
-    //     username: "lulu",
-    // }]
     if (tasks) {
         return (
-            <>
-                <View style={{ ...styleg.safearea, height: '100%' }}>
+            <View style={styleg.safearea}>
+                <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center' }} source={bgLog}>
                     <ScrollView>
                         <View style={{ width: '100%', justifyContent: 'flex-start', alignItems: 'center', height: '100%' }}>
-                            <View style={{ width: '92%', height: 225, backgroundColor: 'green', margin: 10, justifyContent: 'center', alignItems: 'center' }}>
-                                <Image source={{ uri: image }} style={{ width: 143, height: 143, borderRadius: 143 / 2 }} />
-                                <Text style={{fontSize: 24, fontWeight: '600', marginTop: 4}}>{username}</Text>
+                            <View style={{ width: '92%', height: 235, borderRadius: 10, backgroundColor: 'whitesmoke', margin: 10, marginTop: 20, justifyContent: 'center', alignItems: 'center', paddingTop: 6 }}>
+                                <Image source={{ uri: image }} style={{ width: 143, height: 143, borderRadius: 143 / 2, marginTop: 18 }} />
+                                <Text style={{ fontSize: 24, fontWeight: '600', margin: 5 }}>{username}</Text>
+                                <TouchableOpacity activeOpacity={1} onPress={() => logoutNow()} style={{ marginTop: 14, width: '100%', height: 38, padding: 2, backgroundColor: '#cc4355', justifyContent: 'center', alignItems: 'center', borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}>
+                                    <Text style={{ color: 'white', textAlign: 'center', fontWeight: '600', fontSize: 14 }}>Logout</Text>
+                                </TouchableOpacity>
                             </View>
 
-                            <View style={{ width: '92%' }}>
+                            <View style={{ width: '92%', marginVertical: 20 }}>
                                 {
                                     tasks.map((el, i) =>
                                         <View key={i} style={{ height: 65, width: '100%', flexDirection: 'row', marginVertical: 5, borderRadius: 10 }}>
-                                            <LineService type={el.problem} user={el.tukangBaksoId} key={i} navigation={props.navigation} id={el._id} />
+                                            <LineService type={el.problem} user={el.tukangBasoId} key={i} navigation={props.navigation} id={el._id} />
                                         </View>)
                                 }
                             </View>
                         </View>
                     </ScrollView>
-                </View>
-            </>
+                </ImageBackground>
+            </View>
         )
     } else {
         return <></>

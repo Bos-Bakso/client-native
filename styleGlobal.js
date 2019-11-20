@@ -20,6 +20,14 @@ export default styles = StyleSheet.create({
         margin: 3, 
         alignItems: 'center', 
         borderRadius: 10, 
+    },  
+    shadowing : {
+      borderColor: 'grey',
+      shadowOpacity: 0.75,
+      marginHorizontal: 2.5,
+      shadowRadius: 5,
+      shadowColor: 'grey',
+      shadowOffset: { height: 3, width: 3 }
     }
   })
   

@@ -1,7 +1,5 @@
 import React from 'react'
 import {View, ImageBackground, Text} from 'react-native'
-import nav from  './assets/wallpapers/nav.jpg'
-import Triall from './containers/Triall'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import Home from './containers/Home'
@@ -11,6 +9,8 @@ import Login from './containers/Login'
 import { createStackNavigator } from 'react-navigation-stack';
 import SWork from './containers/Service/SWork'
 import SHome from './containers/Service/SHome'
+import {AntDesign,  Entypo} from '@expo/vector-icons'
+import { service } from './redux/actions/getService'
 
 const HomNavigator = createStackNavigator({
   Home: {
@@ -23,7 +23,23 @@ const HomNavigator = createStackNavigator({
         )
     })
   }
-});
+})
+
+HomNavigator.navigationOptions = {
+  tabBarIcon: ({ focused, horizontal, tintColor }) => {
+  return <Entypo name='home' size={25} color={tintColor} style={{marginTop: 4}} />;
+  }
+}
+Service.navigationOptions = {
+  tabBarIcon: ({ focused, horizontal, tintColor }) => {
+  return <Entypo name='tools' size={25} color={tintColor} style={{marginTop: 4}} />;
+  }
+}
+Profile.navigationOptions = {
+  tabBarIcon: ({ focused, horizontal, tintColor }) => {
+  return <AntDesign name='user' size={25} color={tintColor} style={{marginTop: 4}} />;
+  }
+}
 
 const switchService = createSwitchNavigator({
   SHome : SHome,
@@ -40,7 +56,6 @@ const BottomNav = createBottomTabNavigator(
 );
 
 const switchNav = createSwitchNavigator({
-  // Triall: Triall,
     Login: Login,
     Home: BottomNav,
     Service : switchService

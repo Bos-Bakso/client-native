@@ -5,32 +5,33 @@ import db from '../../config/firebase'
 
 export const addBakso = (payload) => {
     return (dispatch) => {
-        console.log("TRIGGER REDUX ,", payload);
-        axios({
-            method: 'post',
-            url : "http://35.185.180.235/transaction/",
-            data : {
-                latitude : payload.latitude,
-                longitude : payload.longitude,
-            },
-            headers : {
-                token: payload.token
-            }
-        })
-        .then(({data}) => {
-            console.log("hereeeeee");
-            dispatch(successAdd({
-                latitude : payload.latitude,
-                longitude : payload.longitude
-            }))
-            let random = Math.floor(Math.random()* 1000000000000000000)
+        for (let i=0; i<payload.num; i++){
+            axios({
+                method: 'post',
+                url : "http://35.185.180.235/transaction/",
+                data : {
+                    latitude : payload.latitude,
+                    longitude : payload.longitude,
+                },
+                headers : {
+                    token: payload.token
+                }
+            })
+            .then(({data}) => {
+                console.log(i);
+            })
+            .catch(err => {
+                console.log(err, '?????');
+            })
 
-            db.collection('triggerRank').doc('basoRank').set({count: random})
-
-        })
-        .catch(err => {
-            console.log(err, '?????');
-        })
+        }
+        console.log("hereeeeee");
+        dispatch(successAdd({
+            latitude : payload.latitude,
+            longitude : payload.longitude
+        }))
+        let random = Math.floor(Math.random()* 1000000000000000000)
+        db.collection('triggerRank').doc('basoRank').set({count: random})
     }
 }
 

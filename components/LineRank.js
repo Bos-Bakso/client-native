@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, Image, Text} from 'react-native'
 import {useSelector} from 'react-redux'
+import styleGlobal from '../styleGlobal'
 
 export default function LineRank(props) {
     const me = useSelector(state => state.loginAcc._id)
@@ -10,7 +11,7 @@ export default function LineRank(props) {
     // console.log(props)
     if (rank)
     return (
-        <View style={{width: '100%', height: '100%', flexDirection: 'row',}}>
+        <View style={{width: '100%', height: '100%', flexDirection: 'row',...styleGlobal.shadowing,shadowOpacity: 0.85}}>
           <View style={{width: '25%', padding: 8}}>
                   <Image source={{ uri: image }} style={{ width: 80, height: 80, borderRadius: 40, margin: 6 }} />
                 </View>

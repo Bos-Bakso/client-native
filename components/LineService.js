@@ -1,72 +1,75 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import {deleteService} from '../redux/actions/getService'
-import {useDispatch, useSelector} from 'react-redux'
+import { deleteService } from '../redux/actions/getService'
+import { useDispatch, useSelector } from 'react-redux'
 import ban from '../assets/icons/ban.png'
 import battery from '../assets/icons/battery.png'
 import medice from '../assets/icons/medice.png'
 import police from '../assets/icons/police.png'
 import food from '../assets/icons/sauce.png'
 import mechine from '../assets/icons/teknik.png'
-import userIcon from '../assets/icons/user.png'
+import gas from '../assets/icons/gas.png'
+import hand from '../assets/icons/ok.png'
 
 export default function LineServer(props) {
     const token = useSelector(state => state.loginAcc.token)
     const dispatch = useDispatch()
     const type = props.type
     const user = props.user
-    const [once, setOnce] = useState(true)
-    const [icon, setIcon] = useState(null)
-    useEffect(() => {
-        if (once) {
-            if (type === "Medice") {
-                setIcon(medice)
-            } else if (type === "Service") {
-                setIcon(mechine)
-            } else if (type === "Tire Issue" || type === "Ban Issue") {
-                setIcon(ban)
-            } else if (type === "Edit Profile") {
-                setIcon(userIcon)
-            } else if (type === "Low Battery") {
-                setIcon(battery)
-            } else if (type === "Police Issue") {
-                setIcon(police)
-            } else if (type === "Less Ingredient") {
-                setIcon(food)
-            }
+    const icon = () => {
+        if (type === "Medice") {
+            return medice
+        } else if (type === "Service") {
+            return mechine
+        } else if (type === "Tire Issue" || type === "Ban Issue") {
+            return ban
+        } else if (type === "Gas Issue") {
+            return gas
+        } else if (type === "Low Battery") {
+            return battery
+        } else if (type === "Police Issue") {
+            return police
+        } else if (type === "Less Ingredient") {
+            return food
         }
-        setOnce(false)
-    }, [once, type])
-
-    const working = async() => {
-        const payload = {
-            username : props.username,
-            type: type, 
-            icon : icon
-        }
-        await dispatch(deleteService({id :props.id, token: token}))
-        props.navigation.navigate('SWork',payload)
     }
+    // useEffect(() => {
+    //     if (once) {
+        // }
+    //     setOnce(false)
+    // }, [once, type])
 
-
-    return (
-        <View style={{ width: '100%', height: 65, flexDirection: 'row'}}>
-            <View style={{ width: '18%', height: 60, justifyContent: 'center', alignItems: 'center' }}>
-                <View style={{ width: 50, height: 50, borderRadius: 50 / 2, alignItems: 'center', justifyContent: 'center', backgroundColor: 'whitesmoke' }}>
-                    <Image source={icon} style={{ width: 35, height: 35 }} />
+    const working = async () => {
+        const payload = {
+            user: user,
+            type: type,
+            // icon: icon()
+        }
+        console.log(user.username, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+        // await dispatch(deleteService({ id: props.id, token: token }))
+        // props.navigation.navigate('SWork', payload)
+    }
+    if (user.username){
+        return (
+            <View style={{ width: '100%', height: 65, flexDirection: 'row' }}>
+                <View style={{ width: '22%', height: 65, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e2e1e8' , borderBottomLeftRadius: 6, borderTopLeftRadius: 6}}>
+                    <View style={{ width: 50, height: 50, borderRadius: 50 / 2, alignItems: 'center', justifyContent: 'center', backgroundColor: 'whitesmoke' }}>
+                        <Image source={icon()} style={{ width: 35, height: 35 }} />
+                    </View>
+                </View>
+                <View style={{ backgroundColor: 'whitesmoke', width: '62%', padding: 5 }}>
+                    <Text style={{ fontWeight: '600' }}>{type}</Text>
+                    <Text>for @username </Text>
+                </View>
+                <View style={{ backgroundColor: '#8ec725', width: '17%' ,  borderBottomRightRadius: 6, borderTopRightRadius: 6, alignItems: 'center', justifyContent: 'center'}}>
+                    <TouchableOpacity onPress={() => working()} activeOpacity={1}>
+                        <Image source={hand} style={{width: 55, height: 55}}/>
+                    </TouchableOpacity>
                 </View>
             </View>
-            <View style={{ backgroundColor: 'yellow', width: '62%' }}>
-                <Text> Description </Text>
-            </View>
-            <View style={{ backgroundColor: 'red', width: '20%' }}>
-                <TouchableOpacity onPress={() => working()}>
-                    <View>
-                        <Text>Take It</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        </View>
-    )
+        )
+    } else {
+        return <></>
+    }
 
 }

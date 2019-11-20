@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import bgLog from '../assets/wal/wal.jpg'
 import {service} from '../redux/actions/getService'
 import styleg from '../styleGlobal'
-import { login } from "../redux/actions/postLogin";
+import { login, logoutMe } from "../redux/actions/postLogin";
 import toast from '../helpers/toast'
 
+import Spinner from 'react-native-loading-spinner-overlay'
 
 export default function LoginForm(props) {
   const dispatch = useDispatch()
@@ -14,16 +15,22 @@ export default function LoginForm(props) {
   let isLogin = useSelector(state => state.loginAcc.isLogin)
   let role = useSelector(state=> state.loginAcc.role)
   let token = useSelector(state => state.loginAcc.token)
-  const [pass, setPass] = useState('')
-  const [username, setUsername] = useState('')
+  let message = useSelector(state => state.loginAcc.message)
+  const [spinner, setSpinner] = useState(false)
+  const [pass, setPass] = useState(null)
+
+
+  const [username, setUsername] = useState(null)
   const loginMe = () => {
+    setSpinner(true)
     dispatch(login({ username: username, password: pass }))
+    setTimeout(function(){
+      setSpinner(false)}, 1500)
   }
 
   useEffect(() => {
     // props.navigation.navigate('Home')
     if (!isLoading && isLogin) {
-      console.log(role);
       if (role === "service"){
         dispatch(service({token : token}))
         props.navigation.navigate('Service')
@@ -32,7 +39,11 @@ export default function LoginForm(props) {
       } else if (role === "admin"){
         toast("Access for owner is in web")
       }
-    }
+    } else if (!isLoading && message){
+      toast(message)
+      dispatch(logoutMe())
+    } 
+    return setSpinner(false)
   }, [isLoading, isLogin])
 
   return (
@@ -51,13 +62,18 @@ export default function LoginForm(props) {
           <View style={{ width: '80%', marginVertical: 8}}>
           <TextInput style={style.input} secureTextEntry={true} value={pass} onChangeText={text => setPass(text)} placeholder="Password"/>
           <View style={{justifyContent: 'center', alignItems: 'center', width: '100%'}}>
-          <TouchableOpacity style={{ ...styleg.buttonOrange, width: 110, margin: 24, ...style.shadowing }} onPress={() => loginMe()} activeOpacity={.9}>
+          <TouchableOpacity style={{ ...styleg.buttonOrange, width: 110, margin: 24, ...style.shadowing }} onPress={() => loginMe()} activeOpacity={1}>
             <Text style={{padding: 2}}>Submit</Text>
           </TouchableOpacity>
           </View>
         </View>
         </View>
       </ScrollView>
+    <Spinner
+          visible={spinner}
+          textContent={"One moment..."}
+          textStyle={{ color: "#fff" }}
+        />
     </ImageBackground>
       </View>
   )

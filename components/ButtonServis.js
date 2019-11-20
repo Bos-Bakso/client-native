@@ -61,11 +61,11 @@ export default function ButtonServis(props) {
 }
 
     return (
-        <View style={{ width: 78, height: 78, alignItems: 'center', justifyContent: 'flex-start', marginBottom: 2, marginHorizontal: 4, paddingHorizontal: 4 }}>
+        <View style={{ width: 78, height: 84, alignItems: 'center', justifyContent: 'flex-start', marginBottom: 2, marginHorizontal: 4, paddingHorizontal: 4}}>
             <TouchableOpacity onPress={
                 () => notif(props.name)
             }>
-                <View style={{ width: 55, height: 55, borderRadius: 55 / 2, alignItems: 'center', justifyContent: 'center', backgroundColor: 'whitesmoke' }}>
+                <View style={{ width: 55, height: 55, borderRadius: 55 / 2, alignItems: 'center', justifyContent: 'center', backgroundColor: 'whitesmoke', borderWidth: .5, borderColor: '#d8d8d8' }}>
                     <Image source={props.icon} style={{ width: 30, height: 30 }} />
                 </View>
             </TouchableOpacity>

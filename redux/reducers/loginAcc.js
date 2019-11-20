@@ -1,4 +1,4 @@
-import { SUC_LOG, FAIL_LOG, LOGOUT, ADD_BOWL } from '../actions/type'
+import { SUC_LOG, FAIL_LOG, LOGOUT, ADD_BOWL, EMPTY_INPUT } from '../actions/type'
 
 const initialState = {
     isLoading: true,
@@ -49,6 +49,20 @@ export default function login(state = initialState, action) {
                 ...state,
                 bowl: state.bowl +1
             }
+        case FAIL_LOG : 
+        return {
+            ...state,
+            isLogin: false,
+            isLoading: false,
+            message : 'Wrong email and password'
+        }
+        case EMPTY_INPUT : 
+        return {
+            ...state,
+            isLogin: false,
+            isLoading: false,
+            message : 'Please input email and password'
+        }
         default:
             return state
     }

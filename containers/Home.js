@@ -9,10 +9,15 @@ import bakso from '../assets/3bakso.png'
 import { addBakso } from '../redux/actions/addBakso'
 import { updateLocation } from '../redux/actions/patchLocation'
 import styleg from '../styleGlobal'
-import yellow from '../assets/yellow.png'
-// import bg from '../assets/wallpapers/customwal.png'
 import bg from '../assets/wal/wal.jpg'
-import SocketIOClient from 'socket.io-client'
+import satu from '../assets/numberGreen/1.png'
+import dua from '../assets/numberGreen/2.png'
+import tiga from '../assets/numberGreen/3.png'
+import empat from '../assets/numberGreen/4.png'
+import lima from '../assets/numberGreen/5.png'
+import enam from '../assets/numberGreen/6.png'
+import tujuh from '../assets/numberGreen/7.png'
+import delapan from '../assets/numberGreen/8.png'
 
 
 export default function Home(props) {
@@ -38,14 +43,15 @@ export default function Home(props) {
       setInterval(function () {
         _getLocationAsync()
         //  console.log("herer")
-      }, 50000)
+      }, 5000)
     }
   }, [first])
 
-  const animationOn = () => {
+  const animationOn = (num) => {
     console.log("TRIGGER CLIENT");
     setClick(true)
     dispatch(addBakso({
+      num: num,
       latitude: location.latitude,
       longitude: location.longitude,
       token: token
@@ -77,7 +83,7 @@ export default function Home(props) {
             <View style={{ height: 25 }}>
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
 
-                <Text style={{ fontWeight: 'bold', fontSize: 25, color: 'white' }}>5 </Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 25, color: 'white' }}>{bowl} </Text>
                 <Text style={{ fontSize: 20, color: 'white' }}> Bowl Sold</Text>
               </View>
             </View>
@@ -89,25 +95,53 @@ export default function Home(props) {
                       <Image source={bakso} style={{ width: 200, height: 156 }} />
                     </Animatable.View>
                   </View> :
-                  <View style={{ height: 155, alignItems: "center", justifyContent: 'center' }}>
-                    <TouchableOpacity style={{ ...styleg.buttonGreen, width: 120 }} onPress={() => animationOn()}>
-                      <Text style={{ fontSize: 20, paddingVertical: 5 }}>Add Bowl</Text>
-                    </TouchableOpacity>
+                  <View style={{ height: 155, alignItems: "center", justifyContent: 'center', width: '65%' }}>
+                    {/* <View style={{ height: 15, alignItems: "center", justifyContent: 'center', width: '100%', marginVertical: 4, backgroundColor: 'yellow' }}>
+                      <Text>Add Bowl</Text>
+                    </View> */}
+                    <View style={{ flexDirection: 'row' }}>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(1)}>
+                        {/* <Text style={{ fontSize: 20, paddingVertical: 5 }}> 1 Bowl</Text> */}
+                        <Image source={satu} style={{ width: 50, height: 50 }} />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(2)}>
+                        <Image source={dua} style={{ width: 50, height: 50 }} />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(3)}>
+                        <Image source={tiga} style={{ width: 50, height: 50 }} />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(4)}>
+                        <Image source={empat} style={{ width: 50, height: 50 }} />
+                      </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(5)}>
+                        <Image source={lima} style={{ width: 50, height: 50 }} />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(6)}>
+                        <Image source={enam} style={{ width: 50, height: 50 }} />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(7)}>
+                        <Image source={tujuh} style={{ width: 50, height: 50 }} />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(8)}>
+                        <Image source={delapan} style={{ width: 50, height: 50 }} />
+                      </TouchableOpacity>
+                    </View>
+
                   </View>
               }
               <Image source={bowlayam} style={{ width: 230, height: 150, resizeMode: 'contain' }} />
             </View>
-            <View style={{ width: "95%", justifyContent: 'center', alignItems: 'center', marginTop: 18, alignSelf: 'center' }}>
+            <View style={{ width: "95%", justifyContent: 'center', alignItems: 'center', marginTop: 18, alignSelf: 'center' , ...styleg.shadowing}}>
               <View style={{ width: '100%', borderRadius: 12, backgroundColor: '#F2F3F4', alignItems: 'center', flexDirection: 'row', padding: 10 }}>
                 <View style={{ width: '25%', alignItems: 'center' }}>
 
-                  {/* <Image source={{uri : image}} style={{ width: 87, height: 87, resizeMode: 'contain', borderRadius: 87 / 2, margin: 5 }} />
-            */}
-                  <Image source={yellow} style={{ width: 87, height: 87, resizeMode: 'contain', borderRadius: 87 / 2, margin: 5 }} />
+                  <Image source={{ uri: image }} style={{ width: 87, height: 87, borderRadius: 87 / 2, margin: 5 }} />
                 </View>
                 <View style={{ padding: 10, width: '75%' }}>
                   <Text style={{ fontSize: 35 }}>{Income}</Text>
-                  <Text style={{ textAlign: 'right', fontSize: 10 }}>Income for Now</Text>
+                  <Text style={{ textAlign: 'right', fontSize: 11 }}>Income for Now</Text>
                   <Text>Total Bowl {bowl}</Text>
                 </View>
 

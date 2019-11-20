@@ -7,4 +7,4 @@ export const ADD_BOWL = "ADD_BOWL"
 export const GET_SERVICE = "GET_SERVICE"
 export const DEL_SERVICE = "DEL_SERVICE"
 export const RANK = "RANK"
-
+export const EMPTY_INPUT = "EMPTY_INPUT"
