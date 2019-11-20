@@ -42,7 +42,6 @@ export const login = (payload) => {
 }
 
 export const successLogin = (payload) => {
-    console.log(payload, 'disiinii donggggg');
     return ({
         type: SUC_LOG, payload: payload
     })

@@ -27,13 +27,11 @@ export default function Ranking(props) {
     db.collection('triggerRank').onSnapshot(function (querySnapshot) {
       dispatch(getRank(_id))
     });
+
   }, [])
-  
-  if (!isLogin){
-    props.navigation.navigate("Login")
-  }
 
   const logoutNow = () => {
+    props.navigation.navigate("Login")
     dispatch(logoutMe())
   }
 
@@ -54,7 +52,7 @@ export default function Ranking(props) {
               <Text style={{ fontSize: 15 }}>{totalBowl} Bowl</Text>
               <Text style={{ fontSize: 12 }}>{totalMoney}</Text>
 
-              <TouchableOpacity activeOpacity={1} onPress={() => logoutNow()} style={{ marginTop: 8, width: '100%', height: 35, backgroundColor: '#cc4355', justifyContent: 'center', alignItems: 'center' , borderBottomRightRadius: 10, borderBottomLeftRadius: 10}}>
+              <TouchableOpacity activeOpacity={1} onPress={() => {logoutNow()}} style={{ marginTop: 8, width: '100%', height: 35, backgroundColor: '#cc4355', justifyContent: 'center', alignItems: 'center' , borderBottomRightRadius: 10, borderBottomLeftRadius: 10}}>
                 <Text style={{ color: 'white', textAlign: 'center', fontWeight: '600' }}>Logout</Text>
               </TouchableOpacity>
             </View>

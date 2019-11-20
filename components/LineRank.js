@@ -8,7 +8,6 @@ export default function LineRank(props) {
     const rank = props.rank
     const image = props.image
     const username= props.username
-    // console.log(props)
     if (rank)
     return (
         <View style={{width: '100%', height: '100%', flexDirection: 'row',...styleGlobal.shadowing,shadowOpacity: 0.85}}>

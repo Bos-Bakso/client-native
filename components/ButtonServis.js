@@ -20,7 +20,6 @@ export default function ButtonServis(props) {
         AppLink.maybeOpenURL(url, 
           { appName, appStoreId, appStoreLocale, playStoreId }
           ).then(() => {
-            console.log("sukses")
           // do stuff
         })
         .catch((err) => {
@@ -33,7 +32,6 @@ export default function ButtonServis(props) {
     let notif = (type) => {
         shareLoc().then(data => {
             if (type === "Urgent"){
-                console.log('pindah page')
                 _handlePressDocs()
 
                 

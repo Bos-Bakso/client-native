@@ -7,7 +7,6 @@ export const getRank =(_id) => {
             method: 'get',
             url: 'http://35.185.180.235/rank'
         }).then(({data})=> {
-            console.log(data.rank, '//////////////////////////');
             let totalBowl = 0
             let totalMoney = ""
             let myRank = 0

@@ -6,6 +6,8 @@ import {service} from '../redux/actions/getService'
 import styleg from '../styleGlobal'
 import { login, logoutMe } from "../redux/actions/postLogin";
 import toast from '../helpers/toast'
+import * as Font from 'expo-font';
+
 
 import Spinner from 'react-native-loading-spinner-overlay'
 
@@ -19,6 +21,14 @@ export default function LoginForm(props) {
   const [spinner, setSpinner] = useState(false)
   const [pass, setPass] = useState(null)
 
+  const [fontLoaded, setFont] = useState(false)
+  useEffect(()=>{
+    Font.loadAsync({
+      'roboto': require('../font/roboto.ttf'),
+    }).then(()=>{
+      setFont(true)
+    })
+  },[])
 
   const [username, setUsername] = useState(null)
   const loginMe = () => {
@@ -27,6 +37,8 @@ export default function LoginForm(props) {
     setTimeout(function(){
       setSpinner(false)}, 1500)
   }
+
+
 
   useEffect(() => {
     // props.navigation.navigate('Home')
@@ -46,13 +58,14 @@ export default function LoginForm(props) {
     return setSpinner(false)
   }, [isLoading, isLogin])
 
+
   return (
     <View style={styleg.safearea}>
       <ImageBackground source={bgLog} style={{height: '100%', resizeMode: "cover"}}>
       <ScrollView>
         <View style={style.containLog}>
         <View style={{ width: '80%', marginTop: 55}}>
-          <Text style={{fontWeight: "bold", textAlign: 'left', fontSize: 33, color: 'white', marginLeft: 4}}>Login</Text>
+          <Text style={{fontWeight: "bold", textAlign: 'left', fontSize: 33, color: 'white', marginLeft: 4 }}>Login</Text>
         </View>
         <View style={{ width: '80%', marginTop: 10}}>
         </View>
@@ -62,8 +75,8 @@ export default function LoginForm(props) {
           <View style={{ width: '80%', marginVertical: 8}}>
           <TextInput style={style.input} secureTextEntry={true} value={pass} onChangeText={text => setPass(text)} placeholder="Password"/>
           <View style={{justifyContent: 'center', alignItems: 'center', width: '100%'}}>
-          <TouchableOpacity style={{ ...styleg.buttonOrange, width: 110, margin: 24, ...style.shadowing }} onPress={() => loginMe()} activeOpacity={1}>
-            <Text style={{padding: 2}}>Submit</Text>
+          <TouchableOpacity style={{ ...styleg.buttonOrange, width: 110, margin: 24, ...style.shadowing }} onPress={() => {loginMe()}} activeOpacity={1}>
+          {fontLoaded? <Text style={{padding: 2, fontFamily:'roboto'}}>Submit</Text> : <></>}
           </TouchableOpacity>
           </View>
         </View>

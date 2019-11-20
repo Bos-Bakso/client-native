@@ -41,25 +41,19 @@ export default function SHome(props) {
                 return;
             }
             let tokenN = await Notifications.getExpoPushTokenAsync();
-            console.log("TOKEN <<<<<<<<<<<    ", tokenN);
             setTokenN(tokenN);
         } else {
-            alert('Must use physical device for Push Notifications');
+            // alert('Must use physical device for Push Notifications');
         }
     };
 
-
-    if (!isLogin) {
-        props.navigation.navigate("Login")
-    }
-
     const logoutNow = () => {
+        props.navigation.navigate("Login")
         dispatch(logoutMe())
     }
 
     sendPushNotification = async () => {
         let lasttask = tasks[0]
-        console.log(lasttask);
         const message = {
             to: expoPushToken,
             sound: 'default',
@@ -77,12 +71,11 @@ export default function SHome(props) {
             body: JSON.stringify(message),
         });
         const data = response._bodyInit;
-        console.log(`Status & Response ID-> ${JSON.stringify(data)}`);
+        // console.log(`Status & Response ID-> ${JSON.stringify(data)}`);
     };
 
 
     useEffect(() => {
-        console.log(expoPushToken);
         db.collection('triggerNotif').onSnapshot(function (querySnapshot) {
             querySnapshot.forEach(doc => {
                 if (!kodeunik) {
@@ -101,12 +94,12 @@ export default function SHome(props) {
         return (
             <View style={styleg.safearea}>
                 <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center' }} source={bgLog}>
-                    <ScrollView>
+                    <ScrollView style={{ width: '100%'}}>
                         <View style={{ width: '100%', justifyContent: 'flex-start', alignItems: 'center', height: '100%' }}>
                             <View style={{ width: '92%', height: 235, borderRadius: 10, backgroundColor: 'whitesmoke', margin: 10, marginTop: 20, justifyContent: 'center', alignItems: 'center', paddingTop: 6 }}>
                                 <Image source={{ uri: image }} style={{ width: 143, height: 143, borderRadius: 143 / 2, marginTop: 18 }} />
                                 <Text style={{ fontSize: 24, fontWeight: '600', margin: 5 }}>{username}</Text>
-                                <TouchableOpacity activeOpacity={1} onPress={() => logoutNow()} style={{ marginTop: 14, width: '100%', height: 38, padding: 2, backgroundColor: '#cc4355', justifyContent: 'center', alignItems: 'center', borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}>
+                                <TouchableOpacity activeOpacity={1} onPress={() => {logoutNow()}} style={{ marginTop: 14, width: '100%', height: 38, padding: 2, backgroundColor: '#cc4355', justifyContent: 'center', alignItems: 'center', borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}>
                                     <Text style={{ color: 'white', textAlign: 'center', fontWeight: '600', fontSize: 14 }}>Logout</Text>
                                 </TouchableOpacity>
                             </View>

@@ -43,13 +43,12 @@ export default function LineServer(props) {
         const payload = {
             user: user,
             type: type,
-            // icon: icon()
+            icon: icon()
         }
-        console.log(user.username, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
-        // await dispatch(deleteService({ id: props.id, token: token }))
-        // props.navigation.navigate('SWork', payload)
+        // console.log(user.username, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+        await dispatch(deleteService({ id: props.id, token: token }))
+        props.navigation.navigate('SWork', payload)
     }
-    if (user.username){
         return (
             <View style={{ width: '100%', height: 65, flexDirection: 'row' }}>
                 <View style={{ width: '22%', height: 65, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e2e1e8' , borderBottomLeftRadius: 6, borderTopLeftRadius: 6}}>
@@ -59,7 +58,7 @@ export default function LineServer(props) {
                 </View>
                 <View style={{ backgroundColor: 'whitesmoke', width: '62%', padding: 5 }}>
                     <Text style={{ fontWeight: '600' }}>{type}</Text>
-                    <Text>for @username </Text>
+                    <Text>for @{user.username} </Text>
                 </View>
                 <View style={{ backgroundColor: '#8ec725', width: '17%' ,  borderBottomRightRadius: 6, borderTopRightRadius: 6, alignItems: 'center', justifyContent: 'center'}}>
                     <TouchableOpacity onPress={() => working()} activeOpacity={1}>
@@ -68,8 +67,6 @@ export default function LineServer(props) {
                 </View>
             </View>
         )
-    } else {
-        return <></>
-    }
+
 
 }

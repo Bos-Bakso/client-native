@@ -11,8 +11,6 @@ export const service = (payload) => {
             }
         }).then(({data})=> {
             if(!data.service){
-
-                console.log("ZONKKKK");
             }
             let result = data.service.filter(function(el){
                 return !el.solve
@@ -20,6 +18,7 @@ export const service = (payload) => {
             let payload = {
                 tasks : result
             }
+            console.log(data.service)
             dispatch(successGet(payload))
         })
         .catch(err => {
@@ -30,7 +29,6 @@ export const service = (payload) => {
 
 export const deleteService = (payload) => {
     return (dispatch) => {
-        console.log("DISOOONOO");
         axios({
             method: 'patch',
             url: `http://35.185.180.235/service/${payload.id}`,

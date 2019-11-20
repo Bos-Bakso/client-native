@@ -17,7 +17,6 @@ const initialState = {
 export default function login(state = initialState, action) {
     switch (action.type) {
         case SUC_LOG : 
-        console.log(action.payload , '<<<<<<<<<');
         return {
             ...state,
             token: action.payload.token,
@@ -47,7 +46,7 @@ export default function login(state = initialState, action) {
         case ADD_BOWL :
             return {
                 ...state,
-                bowl: state.bowl +1
+                bowl: state.bowl + payload.num
             }
         case FAIL_LOG : 
         return {

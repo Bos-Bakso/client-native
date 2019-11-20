@@ -36,19 +36,21 @@ export default function Home(props) {
   })
 
   useEffect(() => {
+    let interval 
     if (first) {
       _getLocationAsync()
       setFirst(false)
     } else {
-      setInterval(function () {
+      interval = setInterval(function () {
         _getLocationAsync()
-        //  console.log("herer")
       }, 5000)
+    }
+    return () => {
+      clearInterval(interval)
     }
   }, [first])
 
   const animationOn = (num) => {
-    console.log("TRIGGER CLIENT");
     setClick(true)
     dispatch(addBakso({
       num: num,
@@ -64,7 +66,7 @@ export default function Home(props) {
   _getLocationAsync = async () => {
     let status = await Permissions.askAsync(Permissions.LOCATION);
     if (status.status !== 'granted') {
-      console.log('not authorize');
+      // console.log('not authorize');
     } else {
       let location_ = await Location.getCurrentPositionAsync({});
       let { coords } = location_
@@ -100,31 +102,31 @@ export default function Home(props) {
                       <Text>Add Bowl</Text>
                     </View> */}
                     <View style={{ flexDirection: 'row' }}>
-                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(1)}>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => {animationOn(1)}}>
                         {/* <Text style={{ fontSize: 20, paddingVertical: 5 }}> 1 Bowl</Text> */}
                         <Image source={satu} style={{ width: 50, height: 50 }} />
                       </TouchableOpacity>
-                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(2)}>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() =>{ animationOn(2)}}>
                         <Image source={dua} style={{ width: 50, height: 50 }} />
                       </TouchableOpacity>
-                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(3)}>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() =>{ animationOn(3)}}>
                         <Image source={tiga} style={{ width: 50, height: 50 }} />
                       </TouchableOpacity>
-                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(4)}>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => {animationOn(4)}}>
                         <Image source={empat} style={{ width: 50, height: 50 }} />
                       </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(5)}>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => { animationOn(5)}}>
                         <Image source={lima} style={{ width: 50, height: 50 }} />
                       </TouchableOpacity>
-                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(6)}>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => {animationOn(6)}}>
                         <Image source={enam} style={{ width: 50, height: 50 }} />
                       </TouchableOpacity>
-                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(7)}>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => {animationOn(7)}}>
                         <Image source={tujuh} style={{ width: 50, height: 50 }} />
                       </TouchableOpacity>
-                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => animationOn(8)}>
+                      <TouchableOpacity style={{ width: '25%', margin: 3, justifyContent: 'center', alignItems: 'center' }} onPress={() => {animationOn(8)}}>
                         <Image source={delapan} style={{ width: 50, height: 50 }} />
                       </TouchableOpacity>
                     </View>
