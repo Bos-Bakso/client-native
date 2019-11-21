@@ -46,7 +46,7 @@ export default function login(state = initialState, action) {
         case ADD_BOWL :
             return {
                 ...state,
-                bowl: state.bowl + payload.num
+                bowl: state.bowl + action.payload.num
             }
         case FAIL_LOG : 
         return {

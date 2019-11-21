@@ -44,11 +44,14 @@ export default function LoginForm(props) {
     // props.navigation.navigate('Home')
     if (!isLoading && isLogin) {
       if (role === "service"){
+        setSpinner(false)
         dispatch(service({token : token}))
         props.navigation.navigate('Service')
       } else if (role === "baso"){
+        setSpinner(false)
         props.navigation.navigate('Home')
       } else if (role === "admin"){
+        setSpinner(false)
         toast("Access for owner is in web")
       }
     } else if (!isLoading && message){
@@ -75,7 +78,7 @@ export default function LoginForm(props) {
           <View style={{ width: '80%', marginVertical: 8}}>
           <TextInput style={style.input} secureTextEntry={true} value={pass} onChangeText={text => setPass(text)} placeholder="Password"/>
           <View style={{justifyContent: 'center', alignItems: 'center', width: '100%'}}>
-          <TouchableOpacity style={{ ...styleg.buttonOrange, width: 110, margin: 24, ...style.shadowing }} onPress={() => {loginMe()}} activeOpacity={1}>
+          <TouchableOpacity style={{ ...styleg.buttonOrange, width: 110, margin: 24, ...style.shadowing }} onPress={() => loginMe()} activeOpacity={1}>
           {fontLoaded? <Text style={{padding: 2, fontFamily:'roboto'}}>Submit</Text> : <></>}
           </TouchableOpacity>
           </View>

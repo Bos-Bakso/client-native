@@ -27,7 +27,17 @@ export default styles = StyleSheet.create({
       marginHorizontal: 2.5,
       shadowRadius: 5,
       shadowColor: 'grey',
-      shadowOffset: { height: 3, width: 3 }
+      elevation: 2.5 ,
+      shadowOffset: { height: 3.5, width: 3.5 }
+    },
+    setshadow : {
+      borderColor: 'black',
+      shadowOpacity: 0.8,
+      marginHorizontal: 2.5,
+      shadowRadius: 5,
+      shadowColor: 'black',
+      elevation: 3 ,
+      shadowOffset: { height: 5, width: 5 }
     }
   })
   

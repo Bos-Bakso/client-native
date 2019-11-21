@@ -34,7 +34,7 @@ export default function Service(props) {
           <ImageBackground source={gradient} style={{ height: 180, width: '100%', resizeMode: 'cover', marginBottom: 15, borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}>
 
           </ImageBackground>
-          <View style={{ top: -110, justifyContent: 'center', width: '93%', backgroundColor: 'white', borderRadius: 8, height: 190, paddingVertical: 3, paddingHorizontal: 3, marginBottom: 12, ...style.shadowing }}>
+          <View style={{ top: -110, justifyContent: 'center', width: '93%', backgroundColor: 'white', borderRadius: 8, height: 190, paddingVertical: 3, paddingHorizontal: 3, marginBottom: 12,...styleg.setshadow }}>
             <View style={{ flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-around', height: '100%', width: '100%', padding: 3 }}>
               {
                 service.map((el, i) =>
@@ -49,14 +49,14 @@ export default function Service(props) {
 
             {
               service.map((el, i) =>
-                <View key={i} style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '93%', backgroundColor: 'white', borderRadius: 8, height: 120, paddingVertical: 3, paddingHorizontal: 3, marginVertical: 7, ...style.shadowing1 }}>
+                <View key={i} style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '93%', backgroundColor: 'white', borderRadius: 8, height: 120, paddingVertical: 3, paddingHorizontal: 3, marginVertical: 7,...styleg.shadowing  }}>
                   <View style={{ width: 80, height: 80, borderRadius: 80 / 2, alignItems: 'center', justifyContent: 'center', backgroundColor: 'whitesmoke', marginLeft: 8, marginRight: 10, borderWidth: .8, borderColor: '#d8d8d8' }}>
                     <Image source={el.icon} style={{ width: 55, height: 55 }} />
                   </View>
                   <View style={{ paddingVertical: 18, width: '75%' }}>
                     <Text style={{ fontSize: 18, marginBottom: 2 }}>{el.name}</Text>
                     <View style={{ height: '100%', width: '100%' }}>
-                      <Text>{el.desc}</Text>
+                      <Text style={{marginRight: 4}}>{el.desc}</Text>
                     </View>
                   </View>
                 </View>

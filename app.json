@@ -24,7 +24,11 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier":"com.BosBaso.BosBaso",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.BosBaso.BosBaso"
     }
   }
 }

@@ -20,10 +20,10 @@ export default function Swork(props) {
         <View style={styleg.safearea}>
             <ImageBackground style={{ width: '100%', height: '100%', alignItems: 'center' }} source={bgLog}>
                 <OnProgress user={detail.user.image} icon={detail.icon} />
-                <TouchableOpacity onPress={() => {done()}} style={{ ...styleg.buttonGreen, width: 130, padding: 10 }}>
+                <TouchableOpacity onPress={() => done()} style={{ ...styleg.buttonGreen, width: 130, padding: 10 }}>
                     <Text style={{ fontSize: 24 }}>Finish</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {location()}} style={{ ...styleg.buttonOrange, width: 130, padding: 10 }}>
+                <TouchableOpacity onPress={() => location()} style={{ ...styleg.buttonOrange, width: 130, padding: 10 }}>
                     <Text style={{ fontSize: 24 }}>Location</Text>
                 </TouchableOpacity>
                 <View style={{ backgroundColor: 'whitesmoke', width: '92%', borderRadius: 10, marginVertical: 35, alignItems: 'center', padding: 10}}>

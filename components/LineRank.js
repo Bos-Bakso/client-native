@@ -10,7 +10,7 @@ export default function LineRank(props) {
     const username= props.username
     if (rank)
     return (
-        <View style={{width: '100%', height: '100%', flexDirection: 'row',...styleGlobal.shadowing,shadowOpacity: 0.85}}>
+        <View style={{width: '100%', height: '100%', flexDirection: 'row',shadowOpacity: 0.85}}>
           <View style={{width: '25%', padding: 8}}>
                   <Image source={{ uri: image }} style={{ width: 80, height: 80, borderRadius: 40, margin: 6 }} />
                 </View>

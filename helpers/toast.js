@@ -2,7 +2,7 @@ import Toast from 'react-native-root-toast'
 
 export default toast = (props) => {
     Toast.show(props, {
-    duration: Toast.durations.LONG,
+    duration: Toast.durations.SHORT,
     position: Toast.positions.CENTER,
     shadow: true,
     animation: true,

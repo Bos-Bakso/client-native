@@ -16,6 +16,7 @@ export const updateLocation = (payload) => {
         .then(({data}) => {
         })
         .catch(err => {
+            console.log(err);
             console.log(err, '?????');
         })
     }

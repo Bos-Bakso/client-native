@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {GET_SERVICE, DEL_SERVICE} from './type'
 
-export const service = (payload) => {
+export const service =  (payload) => {
     return (dispatch) => {
         axios({
             method: 'get',
@@ -9,21 +9,21 @@ export const service = (payload) => {
             headers: {
                 token : payload.token
             }
-        }).then(({data})=> {
-            if(!data.service){
-            }
+        })
+        .then(({data})=> {
             let result = data.service.filter(function(el){
                 return !el.solve
             })
-            let payload = {
+            let payloads = {
                 tasks : result
             }
-            console.log(data.service)
-            dispatch(successGet(payload))
+            console.log(data);
+            dispatch(successGet(payloads))
+       
         })
         .catch(err => {
             console.log(err);
-        })
+        })  
     }
 }
 
@@ -36,7 +36,8 @@ export const deleteService = (payload) => {
                 token : payload.token
             }
         }).then(({data})=> {
-           console.log("delete");
+           console.log("delete")
+           dispatch(service(payload))
         })
         .catch(err => {
             console.log(err);

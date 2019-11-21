@@ -39,14 +39,15 @@ export default function LineServer(props) {
     //     setOnce(false)
     // }, [once, type])
 
-    const working = async () => {
+    const working = () => {
         const payload = {
             user: user,
             type: type,
             icon: icon()
         }
         // console.log(user.username, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
-        await dispatch(deleteService({ id: props.id, token: token }))
+        dispatch(deleteService({ id: props.id, token: token }))
+        //  console.log(props.id);
         props.navigation.navigate('SWork', payload)
     }
         return (

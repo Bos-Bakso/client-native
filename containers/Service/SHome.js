@@ -43,12 +43,16 @@ export default function SHome(props) {
             let tokenN = await Notifications.getExpoPushTokenAsync();
             setTokenN(tokenN);
         } else {
-            // alert('Must use physical device for Push Notifications');
+            alert('Must use physical device for Push Notifications');
         }
     };
 
-    const logoutNow = () => {
+
+    if (!isLogin) {
         props.navigation.navigate("Login")
+    }
+
+    const logoutNow = () => {
         dispatch(logoutMe())
     }
 
